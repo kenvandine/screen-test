@@ -1,0 +1,33 @@
+name: screen-test
+adopt-info: screen-test
+grade: stable 
+summary: Screen Test
+description: Screen Test - Full Screen app to find dead pixels on the display
+confinement: strict
+base: core24
+contact: https://github.com/kenvandine/screen-test/issues
+issues: https://github.com/kenvandine/screen-test/issues
+website: https://github.com/kenvandine/screen-test
+license: GPL-3.0+
+icon: icon512.png
+platforms:
+  amd64:
+  arm64:
+    
+apps:
+  screen-test:
+    extensions: [gnome]
+    command: usr/bin/screen-test
+
+parts:
+  screen-test:
+    source: .
+    plugin: meson
+    meson-parameters: [--prefix=/usr, -Dbuildtype=release]
+    build-packages:
+      - rustc
+      - cargo
+      - git
+    override-pull: |
+      craftctl default
+      craftctl set version=$(git describe --tags --abbrev=8)
