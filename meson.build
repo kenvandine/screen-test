@@ -1,5 +1,5 @@
 project('screen-test', 'rust',
-  version: '0.1',
+  version: '0.2',
   default_options: ['buildtype=debug', 'warning_level=2']
 )
 
