@@ -46,10 +46,17 @@ fn main() {
 
         window.add_controller(key_controller);
 
-        // Handle mouse click events
+        // Handle mouse click events (ignore touch screen)
         let click_controller = gtk4::GestureClick::new();
         let window_clone = window.clone();
-        click_controller.connect_pressed(move |_, n_press, x, y| {
+        click_controller.connect_pressed(move |gesture, n_press, x, y| {
+            // Check if this is a touch event and ignore it
+            if let Some(device) = gesture.device() {
+                if device.source() == gdk4::InputSource::Touchscreen {
+                    println!("Touch event ignored at ({}, {})", x, y);
+                    return;
+                }
+            }
             println!("Mouse clicked: {} times at ({}, {})", n_press, x, y);
             window_clone.close();
         });
