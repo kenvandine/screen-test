@@ -25,9 +25,14 @@ parts:
     plugin: meson
     meson-parameters: [--prefix=/usr, -Dbuildtype=release]
     build-packages:
-      - rustc
-      - cargo
+      - rustc-1.89
+      - cargo-1.89
       - git
     override-pull: |
       craftctl default
       craftctl set version=$(git describe --tags --abbrev=8)
+    override-build: |
+      export PATH=/usr/bin:$PATH
+      export CARGO=/usr/bin/cargo
+      export RUSTC=/usr/bin/rustc
+      craftctl default
