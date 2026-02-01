@@ -4,7 +4,6 @@ extern crate gdk4;
 
 use gtk4::prelude::*;
 use gtk4::{Application, ApplicationWindow, DrawingArea};
-use gtk4::gdk::Key;
 
 fn main() {
     let application = Application::new(None::<String>, gio::ApplicationFlags::FLAGS_NONE);
@@ -35,12 +34,8 @@ fn main() {
         // Clone the window variable before moving into the closure
         let window_clone = window.clone();
         key_controller.connect_key_pressed(move |_, keyval, _, _| {
-            // Print the value of keyval
             println!("Key pressed: {:?}", keyval);
-            if keyval == Key::Escape {
-                window_clone.close();
-            }
-
+            window_clone.close();
             glib::Propagation::Proceed
         });
 
