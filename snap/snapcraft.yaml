@@ -25,8 +25,8 @@ parts:
     plugin: meson
     meson-parameters: [--prefix=/usr, -Dbuildtype=release]
     build-packages:
-      - rustc-1.89
-      - cargo-1.89
+      - rustc
+      - cargo
       - git
     override-pull: |
       craftctl default
